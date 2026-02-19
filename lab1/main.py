@@ -1,11 +1,6 @@
 import requests
 import numpy as np
 import matplotlib.pyplot as plt
-
-# --- 1. Отримання даних (GPS координати маршруту на Говерлу) ---
-# Список координат з методички (API іноді глючить, тому надійніше задати їх списком,
-# але спробуємо спочатку через API, як просить методичка)
-
 url = "https://api.open-elevation.com/api/v1/lookup"
 locations = (
     "48.164214,24.536044|48.164983,24.534836|48.165605,24.534068|"
@@ -177,3 +172,38 @@ print("\nКоефіцієнти сплайнів (перші 5):")
 print(f"{'i':<3} | {'a':<10} | {'b':<10} | {'c':<10} | {'d':<10}")
 for i in range(min(5, spline.n)):
     print(f"{i:<3} | {spline.a[i]:<10.2f} | {spline.b[i]:<10.2f} | {spline.c[i]:<10.4f} | {spline.d[i]:<10.6f}")
+
+# =======================================================
+# --- ДОДАТКОВІ ЗАВДАННЯ З МЕТОДИЧКИ ---
+# =======================================================
+
+# --- 1. Характеристики маршруту ---
+n_points = len(distances)
+print("\n--- Додаткові характеристики маршруту ---")
+
+print(f"Загальна довжина маршруту (м): {distances[-1]:.2f}")
+
+# Розрахунок total_ascent (ось цієї змінної вам не вистачало)
+total_ascent = sum(max(elevations[i] - elevations[i - 1], 0) for i in range(1, n_points))
+print(f"Сумарний набір висоти (м): {total_ascent:.2f}")
+
+total_descent = sum(max(elevations[i - 1] - elevations[i], 0) for i in range(1, n_points))
+print(f"Сумарний спуск (м): {total_descent:.2f}")
+
+    # --- 2. Аналіз градієнта (через похідну сплайна) ---
+grad_full = np.gradient(y_smooth, x_smooth) * 100
+
+print("\n--- Аналіз градієнта ---")
+print(f"Максимальний підйом (%): {np.max(grad_full):.2f}")
+print(f"Максимальний спуск (%): {np.min(grad_full):.2f}")
+print(f"Середній градієнт (%): {np.mean(np.abs(grad_full)):.2f}")
+
+# --- 3. Механічна енергія підйому ---
+mass = 80
+g = 9.81
+energy = mass * g * total_ascent  # Тепер помилки не буде, бо змінна існує!
+
+print("\n--- Енерговитрати ---")
+print(f"Механічна робота (Дж): {energy:.2f}")
+print(f"Механічна робота (кДж): {energy / 1000:.2f}")
+print(f"Енергія (ккал): {energy / 4184:.2f}")
