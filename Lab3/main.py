@@ -71,7 +71,7 @@ def variance(y_true, y_approx):
 
 x_data, y_data = read_data("data.csv")
 
-max_degree = 10
+max_degree = 20
 variances = []
 degrees = list(range(1, max_degree + 1))
 
