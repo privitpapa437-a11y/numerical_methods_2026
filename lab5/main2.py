@@ -35,9 +35,9 @@ I_R = I_N0 + (I_N0 - I_N0_2) / 15
 epsR = np.abs(I_R - I0)
 
 print(" Метод Рунге-Ромберга:")
-print(f"   Уточнене значення I_R: {I_R:.6f}")
-print(f"   Похибка epsR: {epsR:.2e}")
-print(f"   (Похибка зменшилась у {eps0/epsR:.1f} разів)\n")
+print(f"Уточнене значення I_R: {I_R:.6f}")
+print(f"Похибка epsR: {epsR:.2e}")
+print(f"(Похибка зменшилась у {eps0/epsR:.1f} разів)\n")
 
 # Метод Ейткена
 num = I_N0_2**2 - I_N0 * I_N0_4

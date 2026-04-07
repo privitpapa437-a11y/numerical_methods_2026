@@ -30,7 +30,6 @@ errors = []
 for N in N_values:
     err = np.abs(simpson(N) - I0)
     errors.append(err)
-
 # Шукаємо Nopt, де похибка стає меншою або рівною 1e-12
 target_eps = 1e-12
 N_opt = None

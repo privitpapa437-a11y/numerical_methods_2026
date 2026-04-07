@@ -44,8 +44,8 @@ I0, _ = spi.quad(f_exact, a, b)
 
 print("Адаптивний алгоритм ")
 print(f"Точне значення I0: {I0:.6f}\n")
-print(f"{'Заданий епсилон (eps)':<25} | {'Реальна похибка':<20} | {'Кількість викликів f(x)'}")
-print("-" * 75)
+print(f"{'Заданий епсилон (eps)':<25} -   {'Реальна похибка':<20} -   {'Кількість викликів f(x)'}")
+
 
 # Тестуємо алгоритм з різними вимогами до точності
 eps_values = [1e-1, 1e-3, 1e-5, 1e-7, 1e-9, 1e-11]
@@ -61,4 +61,4 @@ for eps in eps_values:
     I_adapt = adaptive_simpson(a, b, eps, fa, fm, fb)
     actual_error = np.abs(I_adapt - I0)
 
-    print(f"{eps:<25.0e} | {actual_error:<20.2e} | {f_evals}")
+    print(f"{eps:<25.0e}  {actual_error:<20.2e}  {f_evals}")
